@@ -1,6 +1,6 @@
 <template>
   <Header heading="Contacts"/>
-  <ContactsList />
+  <ContactsList/>
   <Popup/>
 </template>
 

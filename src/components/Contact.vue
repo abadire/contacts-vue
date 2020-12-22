@@ -3,12 +3,13 @@
     <span class="contact__name"> {{name}} </span>
     <div class="contact__buttons">
       <Button value="View" type="confirm" />
-      <Button value="Delete" type="danger"/>
+      <Button value="Delete" type="danger" @click="showOverlay"/>
     </div>
   </div>
 </template>
 
 <script>
+import { useStore } from 'vuex';
 import Button from './Button.vue';
 
 export default {
@@ -16,6 +17,17 @@ export default {
   components: { Button },
   props: {
     name: String,
+  },
+  setup() {
+    const store = useStore();
+
+    async function showOverlay() {
+      store.dispatch('toggleOverlay');
+    }
+
+    return {
+      showOverlay,
+    };
   },
 };
 </script>

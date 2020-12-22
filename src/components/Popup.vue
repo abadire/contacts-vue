@@ -1,10 +1,10 @@
 <template>
-  <div class="overlay" :class="{'overlay--hidden': !isOverlayVisible}" @click="hideOverlay">
+  <div class="overlay" :class="{'overlay--hidden': !isOverlayVisible}" @click.self="hideOverlay">
     <div class="popup">
-      <p>Do you really want to close?</p>
+      <p class="popup__text">Do you really want to delete the contact?</p>
       <div class="popup__buttons">
-        <Button value="Add" type="confirm" />
-        <Button value="Cancel" type="danger" />
+        <Button value="Add" type="confirm" @click="hideOverlay"/>
+        <Button value="Cancel" type="danger" @click="hideOverlay"/>
       </div>
     </div>
   </div>
@@ -55,12 +55,18 @@ export default {
 .popup {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: 50%;
-  height: 50%;
+  padding: 2rem;
   background: whitesmoke;
   border-radius: 10px;
   cursor: default;
+
+  &__text {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
   &__buttons {
     display: flex;
     justify-content: space-around;

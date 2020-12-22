@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createStore } from 'vuex';
-import dummyContacts from '../assets/dummyContacts';
+import dummyContacts from '../assets/sass/dummyContacts';
 
 export default createStore({
   state: {

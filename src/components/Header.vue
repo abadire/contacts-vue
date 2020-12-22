@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <h1 class="header__logo">{{ heading }}</h1>
-    <Button value="Add" icon="add" />
+    <Button value="Add" icon="add"/>
   </header>
 </template>
 
