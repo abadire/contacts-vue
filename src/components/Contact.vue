@@ -35,8 +35,9 @@ export default {
     background-color: whitesmoke;
     border-radius: 5px;
 
-    color: black;
+    color: #555;
     font-size: 2rem;
+    font-weight: 600;
     text-align: start;
 
     transition: all .2s ease-out;
@@ -47,6 +48,7 @@ export default {
     }
 
     &__name {
+      margin-top: .3rem;
       flex-basis: 100%;
       display: flex;
       height: 4rem;
