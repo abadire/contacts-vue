@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 class="header__logo">{{ state.heading }}</h1>
+    <h1 class="header__logo">{{ heading }}</h1>
     <Button value="Add" icon="add"/>
   </header>
 </template>
@@ -16,15 +16,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  setup(props) {
-    const state = {
-      heading: props.heading,
-    };
-
-    return {
-      state,
-    };
   },
 };
 </script>
