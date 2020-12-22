@@ -1,5 +1,5 @@
 <template>
-  <Header heading="Hey"/>
+  <Header heading="Contacts"/>
 </template>
 
 <script>
