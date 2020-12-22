@@ -1,8 +1,9 @@
 import { createStore } from 'vuex';
+import dummyContacts from '../assets/dummyContacts';
 
 export default createStore({
   state: {
-    contacts: [],
+    contacts: dummyContacts,
   },
 
   mutations: {

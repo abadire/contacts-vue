@@ -15,10 +15,7 @@ export default {
   name: 'Contact',
   components: { Button },
   props: {
-    name: {
-      type: String,
-      required: true,
-    },
+    name: String,
   },
 };
 </script>
@@ -32,6 +29,7 @@ export default {
     width: 100%;
     max-height: 5rem;
     padding: 1rem 3rem;
+    margin-bottom: 1rem;
     background-color: whitesmoke;
     border-radius: 5px;
 
