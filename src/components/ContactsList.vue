@@ -1,12 +1,15 @@
 <template>
   <div class="list">
-
+    <Contact name="John"/>
   </div>
 </template>
 
 <script>
-export default {
+import Contact from './Contact.vue';
 
+export default {
+  name: 'ContactList',
+  components: { Contact },
 };
 </script>
 
@@ -14,8 +17,7 @@ export default {
   .list {
     background-color: blanchedalmond;
     width: 80%;
-    height: 100%;
-    padding-top: $header-top + $header-height;
+    padding-top: $header-top + $header-height + 1rem;
     margin: 0 auto;
   }
 </style>

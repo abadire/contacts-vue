@@ -47,7 +47,7 @@ export default {
   color: white;
 
   &__logo {
-    font-size: 2rem;
+    font-size: 3rem;
     user-select: none;
   }
 }
