@@ -32,11 +32,14 @@ export default {
   .button {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: .5rem 1rem;
     border-radius: 20px;
     font-size: 1.5rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all .3s;
+    border: 2px solid transparent;
 
     &--header {
       background-color: lighten(royalblue, 15%);
@@ -45,6 +48,28 @@ export default {
       &:hover {
         background-color: white;
         color: royalblue;
+      }
+    }
+
+    &--confirm,
+    &--danger {
+      width: 40%;
+      background-color: #DDD;
+    }
+
+    &--confirm {
+      color: royalblue;
+
+      &:hover {
+        border: 2px solid royalblue;
+      }
+    }
+
+    &--danger {
+      color: crimson;
+
+      &:hover {
+        border: 2px solid crimson;
       }
     }
 

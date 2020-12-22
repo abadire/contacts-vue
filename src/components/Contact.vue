@@ -2,7 +2,7 @@
   <div class="contact">
     <span class="contact__name"> {{name}} </span>
     <div class="contact__buttons">
-      <Button value="View" />
+      <Button value="View" type="confirm" />
       <Button value="Delete" type="danger"/>
     </div>
   </div>
@@ -38,8 +38,6 @@ export default {
     color: black;
     font-size: 2rem;
     text-align: start;
-
-    cursor: pointer;
 
     transition: all .2s ease-out;
 
