@@ -25,5 +25,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header {
+  height: 5rem;
+  width: 100%;
+  display: flex;
 
+  position: absolute;
+  top: 1rem;
+  left: 0;
+
+  border-radius: 7px;
+  background-color: royalblue;
+}
 </style>
