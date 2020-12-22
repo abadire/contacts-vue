@@ -1,14 +1,15 @@
 <template>
-  <div class="contact">
+  <div class="contact" :class="{'contact--hovered': state.isExpanded}">
     <span class="contact__name"> {{name}} </span>
     <div class="contact__buttons">
-      <Button value="View" type="confirm" />
-      <Button value="Delete" type="danger" @click="showOverlay"/>
+      <Button value="View" type="confirm"/>
+      <Button value="Delete" type="danger" @click="showOverlay(), toggleExpand()"/>
     </div>
   </div>
 </template>
 
 <script>
+import { reactive, watch } from 'vue';
 import { useStore } from 'vuex';
 import Button from './Button.vue';
 
@@ -19,14 +20,30 @@ export default {
     name: String,
   },
   setup() {
+    const state = reactive({
+      isExpanded: false,
+    });
     const store = useStore();
 
-    async function showOverlay() {
+    function showOverlay() {
       store.dispatch('toggleOverlay');
     }
 
+    function toggleExpand() {
+      state.isExpanded = !state.isExpanded;
+    }
+
+    watch(() => store.state.isOverlayVisible,
+      () => {
+        if (state.isExpanded && !store.state.isOverlayVisible) {
+          toggleExpand();
+        }
+      });
+
     return {
       showOverlay,
+      state,
+      toggleExpand,
     };
   },
 };
@@ -52,8 +69,9 @@ export default {
 
     transition: all .2s ease-out;
 
-    &:hover {
-      box-shadow: 0 1rem 1rem #0002;
+    &:hover,
+    &--hovered {
+      box-shadow: 0 .5rem 1rem #0002;
       max-height: 10rem;
     }
 

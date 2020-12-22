@@ -2,7 +2,7 @@
   <button class="button"
           :class="{
             'button--header': type === 'header',
-            'button--confirm': type !== 'header',
+            'button--regular': type !== 'header',
             'button--danger': type === 'danger'
           }"
   >
@@ -51,13 +51,13 @@ export default {
       }
     }
 
-    &--confirm,
+    &--regular,
     &--danger {
       width: 40%;
       background-color: #DDD;
     }
 
-    &--confirm {
+    &--regular {
       color: royalblue;
 
       &:hover {

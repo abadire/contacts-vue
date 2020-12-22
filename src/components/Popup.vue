@@ -3,8 +3,8 @@
     <div class="popup">
       <p class="popup__text">Do you really want to delete the contact?</p>
       <div class="popup__buttons">
-        <Button value="Add" type="confirm" @click="hideOverlay"/>
-        <Button value="Cancel" type="danger" @click="hideOverlay"/>
+        <Button value="Cancel" type="confirm" @click="hideOverlay"/>
+        <Button value="Delete" type="danger" @click="hideOverlay"/>
       </div>
     </div>
   </div>

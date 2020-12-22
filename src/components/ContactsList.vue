@@ -25,7 +25,6 @@ export default {
 
 <style lang="scss" scoped>
   .list {
-    background-color: blanchedalmond;
     width: 80%;
     padding-top: $header-top + $header-height + 1rem;
     margin: 0 auto;
