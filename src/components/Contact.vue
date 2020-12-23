@@ -3,7 +3,7 @@
     <span class="contact__name"> {{name}} </span>
     <div class="contact__buttons">
       <Button value="View" type="confirm"/>
-      <Button value="Delete" type="danger" @click="showOverlay(), toggleExpand()"/>
+      <Button value="Delete" type="danger" @click="showOverlay(); toggleExpand();"/>
     </div>
   </div>
 </template>
@@ -26,13 +26,14 @@ export default {
     const store = useStore();
 
     function showOverlay() {
-      store.dispatch('toggleOverlay');
+      store.dispatch('deleteContactOverlay');
     }
 
     function toggleExpand() {
       state.isExpanded = !state.isExpanded;
     }
 
+    // We use watch to collapse a contact only after the popup close
     watch(() => store.state.isOverlayVisible,
       () => {
         if (state.isExpanded && !store.state.isOverlayVisible) {

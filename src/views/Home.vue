@@ -1,16 +1,24 @@
 <template>
   <Header heading="Contacts"/>
+  <div class="pad"></div>
   <ContactsList/>
-  <Popup/>
+  <Overlay message="hey"/>
 </template>
 
 <script>
 import ContactsList from '../components/ContactsList.vue';
 import Header from '../components/Header.vue';
-import Popup from '../components/Popup.vue';
+import Overlay from '../components/OverlayPopup.vue';
 
 export default {
   name: 'Home',
-  components: { Header, ContactsList, Popup },
+  components: { Header, ContactsList, Overlay },
 };
 </script>
+
+<style lang="scss" scoped>
+  .pad {
+    height: $header-top + $header-height + 1rem;
+    width: 100%;
+  }
+</style>

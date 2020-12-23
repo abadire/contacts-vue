@@ -41,6 +41,10 @@ export default {
     transition: all .3s;
     border: 2px solid transparent;
 
+    &:active {
+      transform: scale(0.9);
+    }
+
     &--header {
       background-color: lighten(royalblue, 15%);
       color: white;

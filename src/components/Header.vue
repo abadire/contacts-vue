@@ -1,21 +1,30 @@
 <template>
   <header class="header">
     <h1 class="header__logo">{{ heading }}</h1>
-    <Button value="Add" icon="add"/>
+    <Button value="Add" icon="add" @click="showPopup"/>
   </header>
 </template>
 
 <script>
+import { useStore } from 'vuex';
 import Button from './Button.vue';
 
 export default {
   name: 'Header',
   components: { Button },
   props: {
-    heading: {
-      type: String,
-      required: true,
-    },
+    heading: String,
+  },
+  setup() {
+    const store = useStore();
+
+    function showPopup() {
+      store.dispatch('addContactOverlay');
+    }
+
+    return {
+      showPopup,
+    };
   },
 };
 </script>

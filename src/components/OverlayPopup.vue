@@ -1,11 +1,7 @@
 <template>
   <div class="overlay" :class="{'overlay--hidden': !isOverlayVisible}" @click.self="hideOverlay">
     <div class="popup">
-      <p class="popup__text">Do you really want to delete the contact?</p>
-      <div class="popup__buttons">
-        <Button value="Cancel" type="confirm" @click="hideOverlay"/>
-        <Button value="Delete" type="danger" @click="hideOverlay"/>
-      </div>
+      <PopupContents/>
     </div>
   </div>
 </template>
@@ -13,17 +9,17 @@
 <script>
 import { useStore } from 'vuex';
 import { computed } from 'vue';
-import Button from './Button.vue';
+import PopupContents from './PopupContents.vue';
 
 export default {
-  name: 'Popup',
-  components: { Button },
+  name: 'Overlay',
+  components: { PopupContents },
   setup() {
     const store = useStore();
     const isOverlayVisible = computed(() => store.state.isOverlayVisible);
 
-    async function hideOverlay() {
-      await store.dispatch('toggleOverlay');
+    function hideOverlay() {
+      store.dispatch('toggleOverlay');
     }
 
     return {

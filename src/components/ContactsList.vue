@@ -1,6 +1,10 @@
 <template>
   <div class="list">
-    <Contact v-for="(contact, index) of contacts" :key="index" :name="contact.name"/>
+    <Contact
+      v-for="(contact, index) of contacts"
+      :key="index"
+      :name="contact.name"
+    />
   </div>
 </template>
 
@@ -26,7 +30,6 @@ export default {
 <style lang="scss" scoped>
   .list {
     width: 80%;
-    padding-top: $header-top + $header-height + 1rem;
     margin: 0 auto;
   }
 </style>
