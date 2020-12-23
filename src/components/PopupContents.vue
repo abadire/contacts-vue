@@ -79,9 +79,9 @@ export default {
     }
 
     function addContact() {
-      if (type.value !== 'add' || state.name === '') return;
+      if (type.value !== 'add' || state.name.trim() === '') return;
       const contact = {
-        name: state.name,
+        name: state.name.trim(),
       };
       store.dispatch('addContact', contact);
       state.name = '';

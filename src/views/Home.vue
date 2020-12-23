@@ -1,8 +1,7 @@
 <template>
   <Header heading="Contacts"/>
-  <div class="pad"></div>
   <ContactsList/>
-  <Overlay message="hey"/>
+  <Overlay/>
 </template>
 
 <script>
@@ -15,10 +14,3 @@ export default {
   components: { Header, ContactsList, Overlay },
 };
 </script>
-
-<style lang="scss" scoped>
-  .pad {
-    height: $header-height + 1rem;
-    width: 100%;
-  }
-</style>

@@ -3,6 +3,7 @@
     <h1 class="header__logo">{{ heading }}</h1>
     <Button value="Add" icon="add" @click="showPopup"/>
   </header>
+  <div class="pad"></div>
 </template>
 
 <script>
@@ -30,30 +31,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header {
-  height: $header-height;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem 0 2rem;
-  margin-top: -1rem;
+  .header {
+    height: $header-height;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem 0 2rem;
+    margin-top: -1rem;
 
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 
-  border-radius: 7px;
-  background-color: royalblue;
-  color: white;
+    border-radius: 7px;
+    background-color: royalblue;
+    color: white;
 
-  @media (max-width: 700px) {
-    border-radius: 0;
+    @media (max-width: 700px) {
+      border-radius: 0;
+    }
+
+    &__logo {
+      font-size: 3rem;
+      user-select: none;
+    }
   }
 
-  &__logo {
-    font-size: 3rem;
-    user-select: none;
+  .pad {
+    height: $header-height + 1rem;
+    width: 100%;
   }
-}
 </style>
