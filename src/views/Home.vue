@@ -18,7 +18,7 @@ export default {
 
 <style lang="scss" scoped>
   .pad {
-    height: $header-top + $header-height + 1rem;
+    height: $header-height + 1rem;
     width: 100%;
   }
 </style>

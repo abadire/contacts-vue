@@ -46,6 +46,7 @@ export default createStore({
     DELETE_CONTACT(state, contact) {
       const idx = state.contacts.indexOf(contact);
       state.contacts.splice(idx, 1);
+      state.currentContact = null;
     },
   },
 
@@ -58,13 +59,15 @@ export default createStore({
       commit('TOGGLE_OVERLAY');
     },
 
+    // 'delete' popup modification
     deleteContactOverlay({ commit }) {
       commit('IS_NOT_EDITABLE');
       commit('CHANGE_TYPE', 'delete');
-      commit('CHANGE_MESSAGE', 'Do you really want to delete the contact?');
+      commit('CHANGE_MESSAGE', 'Are you sure you want to delete this contact?');
       commit('TOGGLE_OVERLAY');
     },
 
+    // 'add' popup modification
     addContactOverlay({ commit }) {
       commit('IS_EDITABLE');
       commit('CHANGE_TYPE', 'add');

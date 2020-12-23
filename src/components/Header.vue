@@ -31,20 +31,25 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  height: 5rem;
+  height: $header-height;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 1rem 2rem 0 2rem;
+  margin-top: -1rem;
 
   position: absolute;
-  top: 1rem;
+  top: 0;
   left: 0;
 
   border-radius: 7px;
   background-color: royalblue;
   color: white;
+
+  @media (max-width: 700px) {
+    border-radius: 0;
+  }
 
   &__logo {
     font-size: 3rem;

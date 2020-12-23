@@ -1,12 +1,12 @@
 <template>
   <div class="contact" :class="{'contact--hovered': state.isExpanded}">
     <span class="contact__name"> {{name}} </span>
-    <div class="contact__buttons">
+    <div class="contact__buttons" @click="passCurrentContact">
       <Button value="View" type="confirm"/>
       <Button
         value="Delete"
         type="danger"
-        @click="showOverlay(); toggleExpand(); passCurrentContact();"
+        @click="showOverlay(); toggleExpand();"
       />
     </div>
   </div>
@@ -42,7 +42,7 @@ export default {
       store.dispatch('setCurrentContact', props.contact);
     }
 
-    // We use watch to collapse a contact only after the popup close
+    // We use 'watch' to collapse a contact only after the popup close
     watch(() => store.state.isOverlayVisible,
       () => {
         if (state.isExpanded && !store.state.isOverlayVisible) {
@@ -70,10 +70,10 @@ export default {
     max-height: 5rem;
     padding: 1rem 3rem;
     margin-bottom: 1rem;
-    background-color: whitesmoke;
+    background-color: $contact-background;
     border-radius: 5px;
 
-    color: #555;
+    color: $contact-font;
     font-size: 2rem;
     font-weight: 600;
     text-align: start;
