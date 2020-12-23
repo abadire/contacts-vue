@@ -4,6 +4,7 @@
       v-for="(contact, index) of contacts"
       :key="index"
       :name="contact.name"
+      :contact="contact"
     />
   </div>
 </template>

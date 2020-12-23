@@ -3,7 +3,11 @@
     <span class="contact__name"> {{name}} </span>
     <div class="contact__buttons">
       <Button value="View" type="confirm"/>
-      <Button value="Delete" type="danger" @click="showOverlay(); toggleExpand();"/>
+      <Button
+        value="Delete"
+        type="danger"
+        @click="showOverlay(); toggleExpand(); passCurrentContact();"
+      />
     </div>
   </div>
 </template>
@@ -18,8 +22,9 @@ export default {
   components: { Button },
   props: {
     name: String,
+    contact: Object,
   },
-  setup() {
+  setup(props) {
     const state = reactive({
       isExpanded: false,
     });
@@ -31,6 +36,10 @@ export default {
 
     function toggleExpand() {
       state.isExpanded = !state.isExpanded;
+    }
+
+    function passCurrentContact() {
+      store.dispatch('setCurrentContact', props.contact);
     }
 
     // We use watch to collapse a contact only after the popup close
@@ -45,6 +54,7 @@ export default {
       showOverlay,
       state,
       toggleExpand,
+      passCurrentContact,
     };
   },
 };

@@ -10,6 +10,7 @@ export default createStore({
       isEditable: false,
       type: '',
     },
+    currentContact: null,
   },
 
   mutations: {
@@ -37,11 +38,24 @@ export default createStore({
     CHANGE_TYPE(state, type) {
       state.popup.type = type;
     },
+
+    SET_CURRENT_CONTACT(state, contact) {
+      state.currentContact = contact;
+    },
+
+    DELETE_CONTACT(state, contact) {
+      const idx = state.contacts.indexOf(contact);
+      state.contacts.splice(idx, 1);
+    },
   },
 
   actions: {
     addContact({ commit }, contact) {
       commit('ADD_CONTACT', contact);
+    },
+
+    toggleOverlay({ commit }) {
+      commit('TOGGLE_OVERLAY');
     },
 
     deleteContactOverlay({ commit }) {
@@ -56,6 +70,14 @@ export default createStore({
       commit('CHANGE_TYPE', 'add');
       commit('CHANGE_MESSAGE', 'Enter new contact\'s name:');
       commit('TOGGLE_OVERLAY');
+    },
+
+    setCurrentContact({ commit }, contact) {
+      commit('SET_CURRENT_CONTACT', contact);
+    },
+
+    deleteContact({ commit }, contact) {
+      commit('DELETE_CONTACT', contact);
     },
   },
 

@@ -4,8 +4,12 @@
     <input type="text" id="popup__input" class="popup__input" ref="input" v-model="state.name">
   </form>
   <div class="popup__buttons">
-    <Button :value="state.buttons.left" type="confirm" @click="hideOverlay(); addContact();"/>
-    <Button :value="state.buttons.right" type="danger" @click="hideOverlay"/>
+    <Button
+      :value="state.buttons.left"
+      type="confirm"
+      @click="hideOverlay(); addContact();"
+    />
+    <Button :value="state.buttons.right" type="danger" @click="hideOverlay(); deleteContact();"/>
   </div>
 </template>
 
@@ -83,11 +87,17 @@ export default {
       state.name = '';
     }
 
+    function deleteContact() {
+      if (type.value !== 'delete') return;
+      store.dispatch('deleteContact', store.state.currentContact);
+    }
+
     return {
       state,
       hideOverlay,
       addContact,
       input,
+      deleteContact,
     };
   },
 };
