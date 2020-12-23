@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createStore } from 'vuex';
-import dummyContacts from '../assets/sass/dummyContacts';
 
 export default createStore({
   state: {
-    contacts: dummyContacts,
+    contacts: [],
     isOverlayVisible: false,
     popup: {
       message: '',
@@ -16,7 +15,7 @@ export default createStore({
   mutations: {
     ADD_CONTACT(state, contact) {
       state.contacts.push(contact);
-      state.contacts.sort((lhs, rhs) => lhs.name[0] > rhs.name[0]);
+      state.contacts.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name));
     },
 
     TOGGLE_OVERLAY(state) {

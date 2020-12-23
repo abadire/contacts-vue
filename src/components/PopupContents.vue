@@ -1,17 +1,19 @@
 <template>
   <p class="popup__text">{{ state.message }}</p>
-  <form class="popup__form" v-if="state.isEditable" @submit.prevent="">
-    <input type="text" id="popup__input" class="popup__input">
+  <form class="popup__form" v-if="state.isEditable" @submit.prevent="hideOverlay(); addContact();">
+    <input type="text" id="popup__input" class="popup__input" ref="input" v-model="state.name">
   </form>
   <div class="popup__buttons">
-    <Button :value="state.buttons.left" type="confirm" @click="hideOverlay"/>
+    <Button :value="state.buttons.left" type="confirm" @click="hideOverlay(); addContact();"/>
     <Button :value="state.buttons.right" type="danger" @click="hideOverlay"/>
   </div>
 </template>
 
 <script>
 import { useStore } from 'vuex';
-import { computed, reactive, watch } from 'vue';
+import {
+  computed, reactive, watch, ref,
+} from 'vue';
 import Button from './Button.vue';
 
 export default {
@@ -22,6 +24,9 @@ export default {
     const message = computed(() => store.state.popup.message);
     const isEditable = computed(() => store.state.popup.isEditable);
     const type = computed(() => store.state.popup.type);
+    const isOverlayVisible = computed(() => store.state.isOverlayVisible);
+    const name = '';
+    const input = ref(null);
 
     const buttons = {
       left: '',
@@ -33,6 +38,7 @@ export default {
       isEditable,
       type,
       buttons,
+      name,
     });
 
     watch(() => type.value,
@@ -57,13 +63,31 @@ export default {
         }
       });
 
+    watch(() => isOverlayVisible.value,
+      () => {
+        if (isOverlayVisible.value && isEditable) {
+          setTimeout(() => input.value.focus());
+        }
+      });
+
     function hideOverlay() {
       store.dispatch('toggleOverlay');
+    }
+
+    function addContact() {
+      if (type.value !== 'add' || state.name === '') return;
+      const contact = {
+        name: state.name,
+      };
+      store.dispatch('addContact', contact);
+      state.name = '';
     }
 
     return {
       state,
       hideOverlay,
+      addContact,
+      input,
     };
   },
 };
