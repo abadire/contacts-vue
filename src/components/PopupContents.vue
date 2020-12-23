@@ -20,6 +20,32 @@ import {
 } from 'vue';
 import Button from './Button.vue';
 
+function setupButtonsValues(type) {
+  const buttons = {
+    left: '',
+    right: '',
+  };
+  switch (type) {
+    case 'delete': {
+      buttons.left = 'Cancel';
+      buttons.right = 'Delete';
+      break;
+    }
+    case 'add': {
+      buttons.left = 'Add';
+      buttons.right = 'Cancel';
+      break;
+    }
+    case 'edit': {
+      buttons.left = 'Save';
+      buttons.right = 'Cancel';
+      break;
+    }
+    default: break;
+  }
+  return buttons;
+}
+
 export default {
   name: 'PopupContents',
   components: { Button },
@@ -29,43 +55,23 @@ export default {
     const isEditable = computed(() => store.state.popup.isEditable);
     const type = computed(() => store.state.popup.type);
     const isOverlayVisible = computed(() => store.state.isOverlayVisible);
-    const name = '';
     const input = ref(null);
-
-    const buttons = {
-      left: '',
-      right: '',
-    };
 
     const state = reactive({
       message,
       isEditable,
       type,
-      buttons,
-      name,
+      buttons: {
+        left: '',
+        right: '',
+      },
+      name: '',
     });
 
+    state.buttons = setupButtonsValues(type.value);
+
     watch(() => type.value,
-      () => {
-        switch (type.value) {
-          case 'delete': {
-            buttons.left = 'Cancel';
-            buttons.right = 'Delete';
-            break;
-          }
-          case 'add': {
-            buttons.left = 'Add';
-            buttons.right = 'Cancel';
-            break;
-          }
-          case 'edit': {
-            buttons.left = 'Save';
-            buttons.right = 'Cancel';
-            break;
-          }
-          default: break;
-        }
-      });
+      () => { state.buttons = setupButtonsValues(type.value); });
 
     watch(() => isOverlayVisible.value,
       () => {
@@ -78,10 +84,12 @@ export default {
       store.dispatch('toggleOverlay');
     }
 
+    const idx = computed(() => store.state.index);
     function addContact() {
       if (type.value !== 'add' || state.name.trim() === '') return;
       const contact = {
         name: state.name.trim(),
+        index: idx.value,
       };
       store.dispatch('addContact', contact);
       state.name = '';
@@ -94,9 +102,9 @@ export default {
 
     return {
       state,
+      input,
       hideOverlay,
       addContact,
-      input,
       deleteContact,
     };
   },
@@ -122,6 +130,7 @@ export default {
     &__input {
       font-size: 2rem;
       padding: 1rem;
+      border-radius: 2px;
     }
   }
 </style>

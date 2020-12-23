@@ -1,5 +1,5 @@
 <template>
-  <button class="button"
+  <button @click="navigate" class="button"
           :class="{
             'button--header': type === 'header',
             'button--regular': type !== 'header',
@@ -12,18 +12,28 @@
 </template>
 
 <script>
+import router from '../router';
+
 export default {
   name: 'Button',
   props: {
-    value: {
-      type: String,
-      required: true,
-    },
+    value: String,
     icon: String,
     type: {
       type: String,
       default: 'header',
     },
+    to: Object,
+  },
+  setup(props) {
+    function navigate() {
+      if (props.to) {
+        router.push(props.to);
+      }
+    }
+    return {
+      navigate,
+    };
   },
 };
 </script>

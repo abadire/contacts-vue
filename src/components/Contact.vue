@@ -2,7 +2,7 @@
   <div class="contact" :class="{'contact--hovered': state.isExpanded}">
     <span class="contact__name"> {{name}} </span>
     <div class="contact__buttons" @click="passCurrentContact">
-      <Button value="View" type="confirm"/>
+      <Button value="View" type="confirm" :to="{name: `Edit`, params: {index: contact.index}}"/>
       <Button
         value="Delete"
         type="danger"
@@ -82,7 +82,7 @@ export default {
 
     &:hover,
     &--hovered {
-      box-shadow: 0 .5rem 1rem #0002;
+      box-shadow: 0 .5rem 1rem #0003;
       max-height: 10rem;
     }
 

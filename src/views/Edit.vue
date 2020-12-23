@@ -8,7 +8,7 @@ import Header from '../components/Header.vue';
 import Overlay from '../components/OverlayPopup.vue';
 
 export default {
-  name: 'Home',
+  name: 'Edit',
   components: { Header, Overlay },
 };
 </script>

@@ -11,12 +11,14 @@ export default createStore({
       type: '',
     },
     currentContact: null,
+    index: 0,
   },
 
   mutations: {
     ADD_CONTACT(state, contact) {
       state.contacts.push(contact);
       state.contacts.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name));
+      state.index += 1;
     },
 
     TOGGLE_OVERLAY(state) {
@@ -45,8 +47,10 @@ export default createStore({
 
     DELETE_CONTACT(state, contact) {
       const idx = state.contacts.indexOf(contact);
-      state.contacts.splice(idx, 1);
       state.currentContact = null;
+      if (idx !== -1) {
+        state.contacts.splice(idx, 1);
+      }
     },
   },
 
