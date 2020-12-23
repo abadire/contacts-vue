@@ -44,22 +44,18 @@ export default createStore({
       commit('ADD_CONTACT', contact);
     },
 
-    toggleOverlay({ commit }) {
-      commit('TOGGLE_OVERLAY');
-    },
-
     deleteContactOverlay({ commit }) {
-      commit('TOGGLE_OVERLAY');
-      commit('CHANGE_MESSAGE', 'Do you really want to delete the contact?');
       commit('IS_NOT_EDITABLE');
       commit('CHANGE_TYPE', 'delete');
+      commit('CHANGE_MESSAGE', 'Do you really want to delete the contact?');
+      commit('TOGGLE_OVERLAY');
     },
 
     addContactOverlay({ commit }) {
-      commit('TOGGLE_OVERLAY');
-      commit('CHANGE_MESSAGE', 'Enter new contact\'s name:');
       commit('IS_EDITABLE');
       commit('CHANGE_TYPE', 'add');
+      commit('CHANGE_MESSAGE', 'Enter new contact\'s name:');
+      commit('TOGGLE_OVERLAY');
     },
   },
 

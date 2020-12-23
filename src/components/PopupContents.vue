@@ -65,7 +65,7 @@ export default {
 
     watch(() => isOverlayVisible.value,
       () => {
-        if (isOverlayVisible.value && isEditable) {
+        if (isOverlayVisible.value && isEditable.value) {
           setTimeout(() => input.value.focus());
         }
       });
