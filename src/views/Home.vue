@@ -1,7 +1,7 @@
 <template>
   <Header
     heading="Contacts"
-    :controlElements="[{value: 'Add contact', icon: 'add', type: Constants.ADD_CONTACT}]"
+    :controlElements="[{value: 'Add contact', icon: 'add', command: PopupCommands.ADD_CONTACT}]"
   />
   <ContactsList/>
   <Overlay/>
@@ -11,13 +11,13 @@
 import ContactsList from '../components/ContactsList.vue';
 import Header from '../components/Header.vue';
 import Overlay from '../components/OverlayPopup.vue';
-import Constants from '../assets/Constants';
+import { PopupCommands } from '../assets/Constants';
 
 export default {
   name: 'Home',
   components: { Header, ContactsList, Overlay },
   setup() {
-    return { Constants };
+    return { PopupCommands };
   },
 };
 </script>

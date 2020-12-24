@@ -16,7 +16,7 @@
 
 <script>
 import { useStore } from 'vuex';
-import Constants from '../assets/Constants';
+import { PopupCommands } from '../assets/Constants';
 import Button from './Button.vue';
 
 export default {
@@ -32,8 +32,8 @@ export default {
     const controlCallbackList = [];
     props.controlElements.forEach(
       (element) => controlCallbackList.push(() => {
-        if (Object.values(Constants).includes(element.type)) {
-          store.dispatch('showOverlay', element.type);
+        if (Object.values(PopupCommands).includes(element.command)) {
+          store.dispatch('showOverlay', element.command);
         }
       }),
     );

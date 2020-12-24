@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createStore } from 'vuex';
-import Constants from '../assets/Constants';
+import { PopupCommands } from '../assets/Constants';
 
 export default createStore({
   state: {
@@ -74,12 +74,12 @@ export default createStore({
     showOverlay({ commit }, type) {
       commit('CHANGE_TYPE', type);
       switch (type) {
-        case Constants.ADD_CONTACT: {
+        case PopupCommands.ADD_CONTACT: {
           commit('IS_EDITABLE');
           commit('CHANGE_MESSAGE', 'Enter new contact\'s name:');
           break;
         }
-        case Constants.DELETE_CONTACT: {
+        case PopupCommands.DELETE_CONTACT: {
           commit('IS_NOT_EDITABLE');
           commit('CHANGE_MESSAGE', 'Are you sure you want to delete this contact?');
           break;

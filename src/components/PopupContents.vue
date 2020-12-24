@@ -19,7 +19,7 @@ import {
   computed, reactive, watch, ref,
 } from 'vue';
 import Button from './Button.vue';
-import Constants from '../assets/Constants';
+import { PopupCommands } from '../assets/Constants';
 
 function setupButtonsValues(type) {
   const buttons = {
@@ -27,17 +27,17 @@ function setupButtonsValues(type) {
     right: '',
   };
   switch (type) {
-    case Constants.DELETE_CONTACT: {
+    case PopupCommands.DELETE_CONTACT: {
       buttons.left = 'Cancel';
       buttons.right = 'Delete';
       break;
     }
-    case Constants.ADD_CONTACT: {
+    case PopupCommands.ADD_CONTACT: {
       buttons.left = 'Add';
       buttons.right = 'Cancel';
       break;
     }
-    case Constants.EDIT_FIELD: {
+    case PopupCommands.EDIT_FIELD: {
       buttons.left = 'Save';
       buttons.right = 'Cancel';
       break;
@@ -87,7 +87,7 @@ export default {
 
     const idx = computed(() => store.state.index);
     function addContact() {
-      if (type.value !== Constants.ADD_CONTACT || state.name.trim() === '') return;
+      if (type.value !== PopupCommands.ADD_CONTACT || state.name.trim() === '') return;
       const contact = {
         name: state.name.trim(),
         index: idx.value,
@@ -97,7 +97,7 @@ export default {
     }
 
     function deleteContact() {
-      if (type.value !== Constants.DELETE_CONTACT) return;
+      if (type.value !== PopupCommands.DELETE_CONTACT) return;
       store.dispatch('deleteContact', store.state.currentContact);
     }
 
