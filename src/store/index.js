@@ -3,7 +3,7 @@ import { createStore } from 'vuex';
 
 export default createStore({
   state: {
-    contacts: [],
+    contacts: localStorage.getItem('contacts') ? JSON.parse(localStorage.getItem('contacts')) : [],
     isOverlayVisible: false,
     popup: {
       message: '',
@@ -11,14 +11,20 @@ export default createStore({
       type: '',
     },
     currentContact: null,
-    index: 0,
+    get index() {
+      const idx = +this.contacts.reduce(
+        (acc, curr) => (acc.index > curr.index ? acc.index : curr.index),
+        0,
+      ) + 1;
+      return String(idx).padStart(6, '0');
+    },
   },
 
   mutations: {
     ADD_CONTACT(state, contact) {
       state.contacts.push(contact);
       state.contacts.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name));
-      state.index += 1;
+      localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
 
     TOGGLE_OVERLAY(state) {
