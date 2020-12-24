@@ -4,7 +4,7 @@
     :controlElements="[{value: 'Add field', icon: 'add', command: PopupCommands.ADD_FIELD}]"
   />
   <div class="edit__wrapper">
-    <Contact :unexpandable="true" name="hi"/>
+    <Field :unexpandable="true" name="hi"/>
   </div>
   <FieldsList :index="index"/>
   <Overlay/>
@@ -15,12 +15,12 @@ import Header from '../components/Header.vue';
 import Overlay from '../components/OverlayPopup.vue';
 import { PopupCommands } from '../assets/Constants';
 import FieldsList from '../components/FieldsList.vue';
-import Contact from '../components/Contact.vue';
+import Field from '../components/Field.vue';
 
 export default {
   name: 'Edit',
   components: {
-    Header, Overlay, FieldsList, Contact,
+    Header, Overlay, FieldsList, Field,
   },
   props: {
     index: String,
