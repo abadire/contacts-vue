@@ -12,6 +12,7 @@ const routes = [
     path: '/id:index',
     name: 'Edit',
     component: Edit,
+    props: true,
   },
 ];
 

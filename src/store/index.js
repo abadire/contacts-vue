@@ -22,8 +22,9 @@ export default createStore({
   },
 
   mutations: {
-    ADD_CONTACT(state, contact) {
-      state.contacts.push(contact);
+    ADD_CONTACT(state, name) {
+      const { index } = state;
+      state.contacts.push({ name, index, fields: [] });
       state.contacts.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name));
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
@@ -63,8 +64,8 @@ export default createStore({
   },
 
   actions: {
-    addContact({ commit }, contact) {
-      commit('ADD_CONTACT', contact);
+    addContact({ commit }, name) {
+      commit('ADD_CONTACT', name);
     },
 
     toggleOverlay({ commit }) {

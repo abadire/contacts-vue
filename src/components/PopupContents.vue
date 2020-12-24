@@ -85,14 +85,9 @@ export default {
       store.dispatch('toggleOverlay');
     }
 
-    const idx = computed(() => store.state.index);
     function addContact() {
       if (type.value !== PopupCommands.ADD_CONTACT || state.name.trim() === '') return;
-      const contact = {
-        name: state.name.trim(),
-        index: idx.value,
-      };
-      store.dispatch('addContact', contact);
+      store.dispatch('addContact', state.name.trim());
       state.name = '';
     }
 
