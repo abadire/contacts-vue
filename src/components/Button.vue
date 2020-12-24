@@ -2,12 +2,14 @@
   <button @click="navigate" class="button"
           :class="{
             'button--header': type === 'header',
-            'button--regular': type !== 'header',
-            'button--danger': type === 'danger'
+            'button--regular': type === 'confirm',
+            'button--danger': type === 'danger',
+            'button--icon-green': type === 'icon-green',
+            'button--icon-red': type === 'icon-red'
           }"
   >
     <span v-if="icon" class="material-icons button__icon">{{ icon }}</span>
-    <span class="button__value">{{ value }}</span>
+    <span v-if="value" class="button__value">{{ value }}</span>
   </button>
 </template>
 
@@ -85,6 +87,25 @@ export default {
       &:hover {
         border: 2px solid crimson;
       }
+    }
+
+    &--icon-red,
+    &--icon-green {
+      padding: .3rem .5rem;
+
+      .button__icon {
+        margin-left: 0;
+      }
+    }
+
+    &--icon-red:hover {
+      color: $icon-red;
+      border: 2px solid $icon-red;
+    }
+
+    &--icon-green:hover {
+      color: $icon-green;
+      border: 2px solid $icon-green;
     }
 
     &__value {

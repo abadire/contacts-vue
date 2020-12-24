@@ -3,14 +3,19 @@
     heading="Edit"
     :controlElements="[{value: 'Add field', icon: 'add', command: PopupCommands.ADD_FIELD}]"
   />
-  <div class="edit__wrapper">
-    <Field :unexpandable="true" name="hi"/>
+  <div v-if="contact">
+    <div class="edit__wrapper">
+      <Field :name="contact.name"/>
+    </div>
+    <FieldsList :list="contact.fields"/>
   </div>
-  <FieldsList :index="index"/>
+  <p v-else class="edit__text">Nothing to see here</p>
   <Overlay/>
 </template>
 
 <script>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 import Header from '../components/Header.vue';
 import Overlay from '../components/OverlayPopup.vue';
 import { PopupCommands } from '../assets/Constants';
@@ -25,15 +30,23 @@ export default {
   props: {
     index: String,
   },
-  setup() {
-    return { PopupCommands };
+  setup(props) {
+    const store = useStore();
+    const contact = computed(() => store.state.contacts.find((el) => el.index === props.index));
+    return { PopupCommands, contact };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  .edit__wrapper {
-    margin: auto;
-    width: 80%;
+  .edit {
+    &__wrapper {
+      margin: auto;
+      width: 80%;
+    }
+
+    &__text {
+      font-size: 2rem;
+    }
   }
 </style>
