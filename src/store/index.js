@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createStore } from 'vuex';
+import Constants from '../assets/Constants';
 
 export default createStore({
   state: {
@@ -56,6 +57,7 @@ export default createStore({
       state.currentContact = null;
       if (idx !== -1) {
         state.contacts.splice(idx, 1);
+        localStorage.setItem('contacts', JSON.stringify(state.contacts));
       }
     },
   },
@@ -69,19 +71,21 @@ export default createStore({
       commit('TOGGLE_OVERLAY');
     },
 
-    // 'delete' popup modification
-    deleteContactOverlay({ commit }) {
-      commit('IS_NOT_EDITABLE');
-      commit('CHANGE_TYPE', 'delete');
-      commit('CHANGE_MESSAGE', 'Are you sure you want to delete this contact?');
-      commit('TOGGLE_OVERLAY');
-    },
-
-    // 'add' popup modification
-    addContactOverlay({ commit }) {
-      commit('IS_EDITABLE');
-      commit('CHANGE_TYPE', 'add');
-      commit('CHANGE_MESSAGE', 'Enter new contact\'s name:');
+    showOverlay({ commit }, type) {
+      commit('CHANGE_TYPE', type);
+      switch (type) {
+        case Constants.ADD_CONTACT: {
+          commit('IS_EDITABLE');
+          commit('CHANGE_MESSAGE', 'Enter new contact\'s name:');
+          break;
+        }
+        case Constants.DELETE_CONTACT: {
+          commit('IS_NOT_EDITABLE');
+          commit('CHANGE_MESSAGE', 'Are you sure you want to delete this contact?');
+          break;
+        }
+        default: break;
+      }
       commit('TOGGLE_OVERLAY');
     },
 

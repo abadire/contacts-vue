@@ -1,13 +1,22 @@
 <template>
   <header class="header">
     <h1 class="header__logo">{{ heading }}</h1>
-    <Button value="Add" icon="add" @click="showPopup"/>
+    <div class="header__controls">
+      <Button
+        v-for="(element, idx) of controlElements"
+        :key="idx"
+        :value="element.value"
+        :icon="element.icon"
+        @click="controlCallbackList[idx]"
+      />
+    </div>
   </header>
   <div class="pad"></div>
 </template>
 
 <script>
 import { useStore } from 'vuex';
+import Constants from '../assets/Constants';
 import Button from './Button.vue';
 
 export default {
@@ -15,16 +24,22 @@ export default {
   components: { Button },
   props: {
     heading: String,
+    controlElements: Array,
   },
-  setup() {
+  setup(props) {
     const store = useStore();
 
-    function showPopup() {
-      store.dispatch('addContactOverlay');
-    }
+    const controlCallbackList = [];
+    props.controlElements.forEach(
+      (element) => controlCallbackList.push(() => {
+        if (Object.values(Constants).includes(element.type)) {
+          store.dispatch('showOverlay', element.type);
+        }
+      }),
+    );
 
     return {
-      showPopup,
+      controlCallbackList,
     };
   },
 };

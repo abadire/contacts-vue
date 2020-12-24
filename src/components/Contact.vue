@@ -16,6 +16,7 @@
 import { reactive, watch } from 'vue';
 import { useStore } from 'vuex';
 import Button from './Button.vue';
+import Constants from '../assets/Constants';
 
 export default {
   name: 'Contact',
@@ -31,7 +32,7 @@ export default {
     const store = useStore();
 
     function showOverlay() {
-      store.dispatch('deleteContactOverlay');
+      store.dispatch('showOverlay', Constants.DELETE_CONTACT);
     }
 
     function toggleExpand() {

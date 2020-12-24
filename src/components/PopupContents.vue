@@ -19,6 +19,7 @@ import {
   computed, reactive, watch, ref,
 } from 'vue';
 import Button from './Button.vue';
+import Constants from '../assets/Constants';
 
 function setupButtonsValues(type) {
   const buttons = {
@@ -26,17 +27,17 @@ function setupButtonsValues(type) {
     right: '',
   };
   switch (type) {
-    case 'delete': {
+    case Constants.DELETE_CONTACT: {
       buttons.left = 'Cancel';
       buttons.right = 'Delete';
       break;
     }
-    case 'add': {
+    case Constants.ADD_CONTACT: {
       buttons.left = 'Add';
       buttons.right = 'Cancel';
       break;
     }
-    case 'edit': {
+    case Constants.EDIT_FIELD: {
       buttons.left = 'Save';
       buttons.right = 'Cancel';
       break;
@@ -86,7 +87,7 @@ export default {
 
     const idx = computed(() => store.state.index);
     function addContact() {
-      if (type.value !== 'add' || state.name.trim() === '') return;
+      if (type.value !== Constants.ADD_CONTACT || state.name.trim() === '') return;
       const contact = {
         name: state.name.trim(),
         index: idx.value,
@@ -96,7 +97,7 @@ export default {
     }
 
     function deleteContact() {
-      if (type.value !== 'delete') return;
+      if (type.value !== Constants.DELETE_CONTACT) return;
       store.dispatch('deleteContact', store.state.currentContact);
     }
 
@@ -128,6 +129,8 @@ export default {
     }
 
     &__input {
+      width: 80%;
+      max-width: 50rem;
       font-size: 2rem;
       padding: 1rem;
       border-radius: 2px;
