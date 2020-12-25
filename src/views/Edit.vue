@@ -8,7 +8,7 @@
     <div class="edit__wrapper">
       <Field @save-name="editName" :name="contact.name"/>
     </div>
-    <FieldsList :list="contact.fields" :contact="contact"/>
+    <FieldsList :list="contact.fields" :contact="contact" @delete-field="promptDeleteField"/>
   </div>
   <p v-else class="edit__text">Nothing to see here</p>
   <Overlay/>
@@ -19,7 +19,7 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 import Header from '../components/Header.vue';
 import Overlay from '../components/OverlayPopup.vue';
-import { EditCommands } from '../assets/Constants';
+import { EditCommands, PopupCommands } from '../assets/Constants';
 import FieldsList from '../components/FieldsList.vue';
 import Field from '../components/Field.vue';
 
@@ -45,8 +45,12 @@ export default {
       }
     }
 
+    function promptDeleteField() {
+      store.dispatch('showOverlay', PopupCommands.DELETE_FIELD);
+    }
+
     return {
-      EditCommands, contact, editName, addField,
+      EditCommands, contact, editName, addField, promptDeleteField,
     };
   },
 };

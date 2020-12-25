@@ -71,6 +71,14 @@ export default createStore({
       contact.fields.push({ name: 'name', value: 'value' });
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
+
+    DELETE_FIELD(state, { contact, field }) {
+      const index = contact.fields.indexOf(field);
+      if (index !== -1) {
+        contact.fields.splice(index, 1);
+        localStorage.setItem('contacts', JSON.stringify(state.contacts));
+      }
+    },
   },
 
   actions: {
@@ -95,6 +103,11 @@ export default createStore({
           commit('CHANGE_MESSAGE', 'Are you sure you want to delete this contact?');
           break;
         }
+        case PopupCommands.DELETE_FIELD: {
+          commit('IS_NOT_EDITABLE');
+          commit('CHANGE_MESSAGE', 'Are you sure you want to delete this field?');
+          break;
+        }
         default: break;
       }
       commit('TOGGLE_OVERLAY');
@@ -114,6 +127,10 @@ export default createStore({
 
     addField({ commit }, contact) {
       commit('ADD_FIELD', contact);
+    },
+
+    deleteField({ commit }, payload) {
+      commit('DELETE_FIELD', payload);
     },
   },
 

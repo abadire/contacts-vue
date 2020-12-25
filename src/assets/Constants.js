@@ -1,6 +1,7 @@
 const PopupCommands = Object.freeze({
   ADD_CONTACT: Symbol('addContact'),
   DELETE_CONTACT: Symbol('deleteContact'),
+  DELETE_FIELD: Symbol('deleteField'),
 });
 
 const EditCommands = Object.freeze({

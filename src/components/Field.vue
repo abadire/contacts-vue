@@ -22,6 +22,7 @@
           v-if="!name && !isEditable"
           icon="delete_forever"
           type="icon-red"
+          @click="emitDeletePrompt"
         />
         <Button
           class="field__icons"
@@ -59,7 +60,7 @@ export default {
     name: String,
     field: Object,
   },
-  emits: ['save-name'],
+  emits: ['save-name', 'delete-field'],
   setup(props, { emit }) {
     const isEditable = ref(false);
     const inputName = ref(null);
@@ -108,6 +109,10 @@ export default {
       }
     }
 
+    function emitDeletePrompt() {
+      emit('delete-field');
+    }
+
     return {
       inputName,
       inputValue,
@@ -116,6 +121,7 @@ export default {
       saveNameEnter,
       saveName,
       cancelInput,
+      emitDeletePrompt,
     };
   },
 };
