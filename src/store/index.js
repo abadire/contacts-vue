@@ -61,6 +61,11 @@ export default createStore({
         localStorage.setItem('contacts', JSON.stringify(state.contacts));
       }
     },
+
+    EDIT_NAME(state, { contact, name }) {
+      contact.value.name = name;
+      localStorage.setItem('contacts', JSON.stringify(state.contacts));
+    },
   },
 
   actions: {
@@ -96,6 +101,10 @@ export default createStore({
 
     deleteContact({ commit }, contact) {
       commit('DELETE_CONTACT', contact);
+    },
+
+    editName({ commit }, payload) {
+      commit('EDIT_NAME', payload);
     },
   },
 

@@ -3,6 +3,7 @@
     <Field
       v-for="(field, index) of list"
       :key="index"
+      :contact="contact"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@ export default {
   components: { Field },
   props: {
     list: Array,
+    contact: Object,
   },
 };
 </script>

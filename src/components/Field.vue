@@ -6,6 +6,7 @@
         ref="inputName"
         :contenteditable="isEditable"
         :class="{'field__name--editable': isEditable}"
+        @keydown="saveNameEnter"
       >{{name}}</span>
       <span v-if="value" class="field__delim">:</span>
       <div v-if="value" class="field__value">Value</div>
@@ -50,27 +51,45 @@ export default {
   props: {
     name: String,
     value: String,
+    field: Object,
   },
-  setup() {
+  setup(props, { emit }) {
     const isEditable = ref(false);
     const inputName = ref(null);
 
     function toggleEdit() {
       isEditable.value = !isEditable.value;
-      setTimeout(() => {
-        inputName.value.focus();
-        const range = new Range();
-        range.setStart(inputName.value, 0);
-        range.setEnd(inputName.value, 1);
+      if (isEditable.value) {
+        setTimeout(() => {
+          inputName.value.focus();
+          const range = new Range();
+          range.setStart(inputName.value, 0);
+          range.setEnd(inputName.value, 1);
+          document.getSelection().empty();
+          document.getSelection().addRange(range);
+        }, 200);
+      } else {
         document.getSelection().empty();
-        document.getSelection().addRange(range);
-      }, 200);
+      }
+    }
+
+    function saveName() {
+      emit('saveName', inputName.value.textContent);
+    }
+
+    function saveNameEnter(event) {
+      if (event.code === 'Enter') {
+        event.preventDefault();
+        saveName();
+        toggleEdit();
+      }
     }
 
     return {
       inputName,
       isEditable,
       toggleEdit,
+      saveNameEnter,
     };
   },
 };

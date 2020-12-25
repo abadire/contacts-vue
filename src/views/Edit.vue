@@ -5,9 +5,9 @@
   />
   <div v-if="contact">
     <div class="edit__wrapper">
-      <Field :name="contact.name"/>
+      <Field @saveName="editName" :name="contact.name"/>
     </div>
-    <FieldsList :list="contact.fields"/>
+    <FieldsList :list="contact.fields" :contact="contact"/>
   </div>
   <p v-else class="edit__text">Nothing to see here</p>
   <Overlay/>
@@ -33,7 +33,12 @@ export default {
   setup(props) {
     const store = useStore();
     const contact = computed(() => store.state.contacts.find((el) => el.index === props.index));
-    return { PopupCommands, contact };
+
+    function editName(name) {
+      store.dispatch('editName', { contact, name });
+    }
+
+    return { PopupCommands, contact, editName };
   },
 };
 </script>
