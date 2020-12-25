@@ -3,7 +3,7 @@
     <Field
       v-for="(field, index) of list"
       :key="index"
-      :contact="contact"
+      :field="field"
     />
   </div>
 </template>
@@ -16,10 +16,13 @@ export default {
   components: { Field },
   props: {
     list: Array,
-    contact: Object,
   },
 };
 </script>
 
 <style lang="scss" scoped>
+  .list {
+    width: 80%;
+    margin: auto;
+  }
 </style>

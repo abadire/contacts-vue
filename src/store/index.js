@@ -66,6 +66,11 @@ export default createStore({
       contact.value.name = name;
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
+
+    ADD_FIELD(state, contact) {
+      contact.fields.push({ name: 'name', value: 'value' });
+      localStorage.setItem('contacts', JSON.stringify(state.contacts));
+    },
   },
 
   actions: {
@@ -105,6 +110,10 @@ export default createStore({
 
     editName({ commit }, payload) {
       commit('EDIT_NAME', payload);
+    },
+
+    addField({ commit }, contact) {
+      commit('ADD_FIELD', contact);
     },
   },
 

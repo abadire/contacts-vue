@@ -1,11 +1,12 @@
 <template>
   <Header
     heading="Edit"
-    :controlElements="[{value: 'Add field', icon: 'add', command: PopupCommands.ADD_FIELD}]"
+    :controlElements="[{value: 'Add field', icon: 'add', command: EditCommands.ADD_FIELD}]"
+    @add-field="addField"
   />
   <div v-if="contact">
     <div class="edit__wrapper">
-      <Field @saveName="editName" :name="contact.name"/>
+      <Field @save-name="editName" :name="contact.name"/>
     </div>
     <FieldsList :list="contact.fields" :contact="contact"/>
   </div>
@@ -18,7 +19,7 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 import Header from '../components/Header.vue';
 import Overlay from '../components/OverlayPopup.vue';
-import { PopupCommands } from '../assets/Constants';
+import { EditCommands } from '../assets/Constants';
 import FieldsList from '../components/FieldsList.vue';
 import Field from '../components/Field.vue';
 
@@ -38,7 +39,15 @@ export default {
       store.dispatch('editName', { contact, name });
     }
 
-    return { PopupCommands, contact, editName };
+    function addField() {
+      if (!contact.value.fields.some((field) => field.name === 'name' && field.value === 'value')) {
+        store.dispatch('addField', contact.value);
+      }
+    }
+
+    return {
+      EditCommands, contact, editName, addField,
+    };
   },
 };
 </script>

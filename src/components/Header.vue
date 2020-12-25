@@ -16,7 +16,7 @@
 
 <script>
 import { useStore } from 'vuex';
-import { PopupCommands } from '../assets/Constants';
+import { PopupCommands, EditCommands } from '../assets/Constants';
 import Button from './Button.vue';
 
 export default {
@@ -26,7 +26,8 @@ export default {
     heading: String,
     controlElements: Array,
   },
-  setup(props) {
+  emits: ['add-field'],
+  setup(props, { emit }) {
     const store = useStore();
 
     const controlCallbackList = [];
@@ -34,6 +35,8 @@ export default {
       (element) => controlCallbackList.push(() => {
         if (Object.values(PopupCommands).includes(element.command)) {
           store.dispatch('showOverlay', element.command);
+        } else if (element.command === EditCommands.ADD_FIELD) {
+          emit('add-field');
         }
       }),
     );

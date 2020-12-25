@@ -2,18 +2,24 @@
     <div class="field">
       <span
         type="text"
-        class="field__name"
+        class="field__input"
         ref="inputName"
         :contenteditable="isEditable"
-        :class="{'field__name--editable': isEditable}"
+        :class="{'field__input--editable': isEditable}"
         @keydown="saveNameEnter"
-      >{{name}}</span>
-      <span v-if="value" class="field__delim">:</span>
-      <div v-if="value" class="field__value">Value</div>
+      >{{name || field.name}}</span>
+      <span v-if="!name" class="field__delim">:</span>
+      <div
+        v-if="!name"
+        class="field__input"
+        ref="inputValue"
+        :contenteditable="isEditable"
+        :class="{'field__input--editable': isEditable}"
+      >{{field.value}}</div>
       <div class="field__buttons">
         <Button
           class="field__icons"
-          v-if="value && !isEditable"
+          v-if="!name && !isEditable"
           icon="delete_forever"
           type="icon-red"
         />
@@ -51,12 +57,13 @@ export default {
   name: 'Field',
   props: {
     name: String,
-    value: String,
     field: Object,
   },
+  emits: ['save-name'],
   setup(props, { emit }) {
     const isEditable = ref(false);
     const inputName = ref(null);
+    const inputValue = ref(null);
 
     function toggleEdit() {
       isEditable.value = !isEditable.value;
@@ -65,7 +72,9 @@ export default {
           inputName.value.focus();
           const range = new Range();
           range.setStart(inputName.value, 0);
-          range.setEnd(inputName.value, 1);
+          if (inputName.value.firstChild) {
+            range.setEnd(inputName.value, 1);
+          }
           document.getSelection().empty();
           document.getSelection().addRange(range);
         }, 200);
@@ -75,12 +84,17 @@ export default {
     }
 
     function saveName() {
-      emit('saveName', inputName.value.textContent);
+      emit('save-name', inputName.value.textContent);
       toggleEdit();
     }
 
     function cancelInput() {
-      inputName.value.textContent = props.name;
+      if (props.name) {
+        inputName.value.textContent = props.name;
+      } else {
+        inputName.value.textContent = props.field.name;
+        inputValue.value.textContent = props.field.value;
+      }
       toggleEdit();
     }
 
@@ -96,6 +110,7 @@ export default {
 
     return {
       inputName,
+      inputValue,
       isEditable,
       toggleEdit,
       saveNameEnter,
@@ -130,7 +145,7 @@ export default {
       box-shadow: 0 .5rem 1rem #0003;
     }
 
-    &__name {
+    &__input {
       background-color: $contact-background-light;
       padding: .3rem;
       border-radius: 2px;
