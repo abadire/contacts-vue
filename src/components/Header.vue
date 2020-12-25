@@ -26,7 +26,7 @@ export default {
     heading: String,
     controlElements: Array,
   },
-  emits: ['add-field'],
+  emits: ['add-field', 'undo'],
   setup(props, { emit }) {
     const store = useStore();
 
@@ -37,6 +37,8 @@ export default {
           store.dispatch('showOverlay', element.command);
         } else if (element.command === EditCommands.ADD_FIELD) {
           emit('add-field');
+        } else if (element.command === EditCommands.UNDO) {
+          emit('undo');
         }
       }),
     );
@@ -73,6 +75,12 @@ export default {
     &__logo {
       font-size: 3rem;
       user-select: none;
+    }
+
+    &__controls {
+      display: flex;
+      justify-content: space-between;
+      min-width: 19rem;
     }
   }
 

@@ -1,8 +1,12 @@
 <template>
   <Header
     heading="Edit"
-    :controlElements="[{value: 'Add field', icon: 'add', command: EditCommands.ADD_FIELD}]"
+    :controlElements="[
+    {value: 'Undo', icon: 'undo', command: EditCommands.UNDO},
+    {value: 'Add field', icon: 'add', command: EditCommands.ADD_FIELD}
+    ]"
     @add-field="addField"
+    @undo="commitUndo"
   />
   <div v-if="contact">
     <div class="edit__wrapper">
@@ -40,13 +44,27 @@ export default {
     const store = useStore();
     const contact = computed(() => store.state.contacts.find((el) => el.index === props.index));
 
+    const history = [{
+      name: contact.value.name,
+      fields: JSON.parse(JSON.stringify(contact.value.fields)),
+    }];
+
+    function addHistoryEntry() {
+      history.push({
+        name: contact.value.name,
+        fields: JSON.parse(JSON.stringify(contact.value.fields)),
+      });
+    }
+
     function editField(payload) {
       store.dispatch('editField', { contact: contact.value, ...payload });
+      addHistoryEntry();
     }
 
     function addField() {
       if (!contact.value.fields.some((field) => field.name === 'name' && field.value === 'value')) {
         store.dispatch('addField', contact.value);
+        addHistoryEntry();
       }
     }
 
@@ -60,6 +78,14 @@ export default {
       if (fiedlToDelete) {
         store.dispatch('deleteField', { contact: contact.value, field: fiedlToDelete });
         fiedlToDelete = null;
+        addHistoryEntry();
+      }
+    }
+
+    function commitUndo() {
+      if (history.length > 1) {
+        history.pop();
+        store.dispatch('undo', { contact: contact.value, record: history[history.length - 1] });
       }
     }
 
@@ -70,6 +96,7 @@ export default {
       addField,
       promptDeleteField,
       deleteField,
+      commitUndo,
     };
   },
 };

@@ -84,6 +84,12 @@ export default createStore({
         localStorage.setItem('contacts', JSON.stringify(state.contacts));
       }
     },
+
+    UNDO(state, { contact, record }) {
+      contact.name = record.name;
+      contact.fields = JSON.parse(JSON.stringify(record.fields));
+      localStorage.setItem('contacts', JSON.stringify(state.contacts));
+    },
   },
 
   actions: {
@@ -136,6 +142,10 @@ export default createStore({
 
     deleteField({ commit }, payload) {
       commit('DELETE_FIELD', payload);
+    },
+
+    undo({ commit }, payload) {
+      commit('UNDO', payload);
     },
   },
 

@@ -7,6 +7,7 @@ const PopupCommands = Object.freeze({
 const EditCommands = Object.freeze({
   ADD_FIELD: Symbol('addField'),
   DELETE_FIELD: Symbol('deleteField'),
+  UNDO: Symbol('undo'),
 });
 
 export { PopupCommands, EditCommands };
