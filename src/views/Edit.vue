@@ -52,8 +52,10 @@ export default {
     }
 
     function deleteField() {
-      console.log('a');
-      store.dispatch('deleteField', { contact: contact.value, field: fiedlToDelete });
+      if (fiedlToDelete) {
+        store.dispatch('deleteField', { contact: contact.value, field: fiedlToDelete });
+        fiedlToDelete = null;
+      }
     }
 
     return {
