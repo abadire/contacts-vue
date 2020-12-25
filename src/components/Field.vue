@@ -43,7 +43,7 @@
           v-if="isEditable"
           icon="done"
           type="icon-green"
-          @click="saveName"
+          @click="emitEditField"
         />
       </div>
   </div>
@@ -60,7 +60,7 @@ export default {
     name: String,
     field: Object,
   },
-  emits: ['save-name', 'delete-field-prompt'],
+  emits: ['edit-field', 'delete-field-prompt'],
   setup(props, { emit }) {
     const isEditable = ref(false);
     const inputName = ref(null);
@@ -84,8 +84,8 @@ export default {
       }
     }
 
-    function saveName() {
-      emit('save-name', inputName.value.textContent);
+    function emitEditField() {
+      emit('edit-field', inputName.value.textContent);
       toggleEdit();
     }
 
@@ -105,7 +105,7 @@ export default {
         cancelInput();
       } else if (event.code === 'Enter') {
         event.preventDefault();
-        saveName();
+        emitEditField();
       }
     }
 
@@ -119,7 +119,7 @@ export default {
       isEditable,
       toggleEdit,
       saveNameEnter,
-      saveName,
+      emitEditField,
       cancelInput,
       emitDeletePrompt,
     };

@@ -62,7 +62,7 @@ export default createStore({
       }
     },
 
-    EDIT_NAME(state, { contact, name }) {
+    EDIT_FIELD(state, { contact, field: { name } }) {
       contact.value.name = name;
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
@@ -121,8 +121,8 @@ export default createStore({
       commit('DELETE_CONTACT', contact);
     },
 
-    editName({ commit }, payload) {
-      commit('EDIT_NAME', payload);
+    editField({ commit }, payload) {
+      commit('EDIT_FIELD', payload);
     },
 
     addField({ commit }, contact) {

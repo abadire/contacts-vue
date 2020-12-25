@@ -6,7 +6,7 @@
   />
   <div v-if="contact">
     <div class="edit__wrapper">
-      <Field @save-name="editName" :name="contact.name"/>
+      <Field @edit-field="editName" :name="contact.name"/>
     </div>
     <FieldsList :list="contact.fields" :contact="contact" @delete-field-prompt="promptDeleteField"/>
   </div>
@@ -36,7 +36,7 @@ export default {
     const contact = computed(() => store.state.contacts.find((el) => el.index === props.index));
 
     function editName(name) {
-      store.dispatch('editName', { contact, name });
+      store.dispatch('editField', { contact, field: { name } });
     }
 
     function addField() {
