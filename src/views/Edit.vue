@@ -6,9 +6,14 @@
   />
   <div v-if="contact">
     <div class="edit__wrapper">
-      <Field @edit-field="editName" :name="contact.name"/>
+      <Field @edit-field="editField" :name="contact.name"/>
     </div>
-    <FieldsList :list="contact.fields" :contact="contact" @delete-field-prompt="promptDeleteField"/>
+    <FieldsList
+      :list="contact.fields"
+      :contact="contact"
+      @delete-field-prompt="promptDeleteField"
+      @edit-field="editField"
+    />
   </div>
   <p v-else class="edit__text">Nothing to see here</p>
   <Overlay @delete-field="deleteField"/>
@@ -35,8 +40,8 @@ export default {
     const store = useStore();
     const contact = computed(() => store.state.contacts.find((el) => el.index === props.index));
 
-    function editName(name) {
-      store.dispatch('editField', { contact, field: { name } });
+    function editField(payload) {
+      store.dispatch('editField', { contact: contact.value, ...payload });
     }
 
     function addField() {
@@ -61,7 +66,7 @@ export default {
     return {
       EditCommands,
       contact,
-      editName,
+      editField,
       addField,
       promptDeleteField,
       deleteField,

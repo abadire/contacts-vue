@@ -43,7 +43,7 @@
           v-if="isEditable"
           icon="done"
           type="icon-green"
-          @click="emitEditField"
+          @click="emitEditField($event)"
         />
       </div>
   </div>
@@ -85,7 +85,13 @@ export default {
     }
 
     function emitEditField() {
-      emit('edit-field', inputName.value.textContent);
+      emit('edit-field', {
+        newField: {
+          name: inputName.value.textContent,
+          value: inputValue.value?.textContent,
+        },
+        oldField: props.field,
+      });
       toggleEdit();
     }
 

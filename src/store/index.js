@@ -62,8 +62,14 @@ export default createStore({
       }
     },
 
-    EDIT_FIELD(state, { contact, field: { name } }) {
-      contact.value.name = name;
+    EDIT_FIELD(state, { contact, newField: { name, value }, oldField }) {
+      if (!value) {
+        contact.name = name;
+      } else {
+        oldField.name = name;
+        oldField.value = value;
+      }
+      console.log(oldField);
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
 

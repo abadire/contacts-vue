@@ -5,6 +5,7 @@
       :key="index"
       :field="field"
       @delete-field-prompt="passDeletePromptEvent"
+      @edit-field="passEditFieldEvent"
     />
   </div>
 </template>
@@ -22,8 +23,12 @@ export default {
     function passDeletePromptEvent(field) {
       emit('delete-field-prompt', field);
     }
+    function passEditFieldEvent(payload) {
+      emit('edit-field', payload);
+    }
     return {
       passDeletePromptEvent,
+      passEditFieldEvent,
     };
   },
 };
