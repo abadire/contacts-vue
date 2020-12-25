@@ -29,13 +29,14 @@
           v-if="isEditable"
           icon="cancel"
           type="icon-red"
+          @click="cancelInput"
         />
         <Button
           class="field__icons"
           v-if="isEditable"
           icon="done"
           type="icon-green"
-          @click="toggleEdit"
+          @click="saveName"
         />
       </div>
   </div>
@@ -75,13 +76,21 @@ export default {
 
     function saveName() {
       emit('saveName', inputName.value.textContent);
+      toggleEdit();
+    }
+
+    function cancelInput() {
+      inputName.value.textContent = props.name;
+      toggleEdit();
     }
 
     function saveNameEnter(event) {
-      if (event.code === 'Enter') {
+      if (inputName.value.textContent === '') {
+        event.preventDefault();
+        cancelInput();
+      } else if (event.code === 'Enter') {
         event.preventDefault();
         saveName();
-        toggleEdit();
       }
     }
 
@@ -90,6 +99,8 @@ export default {
       isEditable,
       toggleEdit,
       saveNameEnter,
+      saveName,
+      cancelInput,
     };
   },
 };
