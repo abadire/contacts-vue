@@ -73,6 +73,7 @@ export default createStore({
     },
 
     DELETE_FIELD(state, { contact, field }) {
+      console.log(contact);
       const index = contact.fields.indexOf(field);
       if (index !== -1) {
         contact.fields.splice(index, 1);

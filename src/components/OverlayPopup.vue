@@ -1,7 +1,7 @@
 <template>
   <div class="overlay" :class="{'overlay--hidden': !isOverlayVisible}" @click.self="hideOverlay">
     <div class="popup">
-      <PopupContents/>
+      <PopupContents @delete-field="passDeleteField"/>
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@ import PopupContents from './PopupContents.vue';
 export default {
   name: 'Overlay',
   components: { PopupContents },
-  setup() {
+  setup(props, { emit }) {
     const store = useStore();
     const isOverlayVisible = computed(() => store.state.isOverlayVisible);
 
@@ -22,9 +22,14 @@ export default {
       store.dispatch('toggleOverlay');
     }
 
+    function passDeleteField() {
+      emit('deleteField');
+    }
+
     return {
       isOverlayVisible,
       hideOverlay,
+      passDeleteField,
     };
   },
 };

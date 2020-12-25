@@ -9,7 +9,11 @@
       type="confirm"
       @click="hideOverlay(); addContact();"
     />
-    <Button :value="state.buttons.right" type="danger" @click="hideOverlay(); deleteContact();"/>
+    <Button
+      :value="state.buttons.right"
+      type="danger"
+      @click="hideOverlay(); deleteContact(); emitDeleteField();"
+    />
   </div>
 </template>
 
@@ -37,9 +41,9 @@ function setupButtonsValues(type) {
       buttons.right = 'Cancel';
       break;
     }
-    case PopupCommands.EDIT_FIELD: {
-      buttons.left = 'Save';
-      buttons.right = 'Cancel';
+    case PopupCommands.DELETE_FIELD: {
+      buttons.left = 'Cancel';
+      buttons.right = 'Delete';
       break;
     }
     default: break;
@@ -50,7 +54,8 @@ function setupButtonsValues(type) {
 export default {
   name: 'PopupContents',
   components: { Button },
-  setup() {
+  emits: ['delete-field'],
+  setup(props, { emit }) {
     const store = useStore();
     const message = computed(() => store.state.popup.message);
     const isEditable = computed(() => store.state.popup.isEditable);
@@ -96,12 +101,17 @@ export default {
       store.dispatch('deleteContact', store.state.currentContact);
     }
 
+    function emitDeleteField() {
+      emit('delete-field');
+    }
+
     return {
       state,
       input,
       hideOverlay,
       addContact,
       deleteContact,
+      emitDeleteField,
     };
   },
 };

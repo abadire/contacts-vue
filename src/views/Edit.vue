@@ -8,10 +8,10 @@
     <div class="edit__wrapper">
       <Field @save-name="editName" :name="contact.name"/>
     </div>
-    <FieldsList :list="contact.fields" :contact="contact" @delete-field="promptDeleteField"/>
+    <FieldsList :list="contact.fields" :contact="contact" @delete-field-prompt="promptDeleteField"/>
   </div>
   <p v-else class="edit__text">Nothing to see here</p>
-  <Overlay/>
+  <Overlay @delete-field="deleteField"/>
 </template>
 
 <script>
@@ -45,12 +45,24 @@ export default {
       }
     }
 
-    function promptDeleteField() {
+    let fiedlToDelete = null;
+    function promptDeleteField(field) {
+      fiedlToDelete = field;
       store.dispatch('showOverlay', PopupCommands.DELETE_FIELD);
     }
 
+    function deleteField() {
+      console.log('a');
+      store.dispatch('deleteField', { contact: contact.value, field: fiedlToDelete });
+    }
+
     return {
-      EditCommands, contact, editName, addField, promptDeleteField,
+      EditCommands,
+      contact,
+      editName,
+      addField,
+      promptDeleteField,
+      deleteField,
     };
   },
 };

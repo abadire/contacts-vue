@@ -60,7 +60,7 @@ export default {
     name: String,
     field: Object,
   },
-  emits: ['save-name', 'delete-field'],
+  emits: ['save-name', 'delete-field-prompt'],
   setup(props, { emit }) {
     const isEditable = ref(false);
     const inputName = ref(null);
@@ -110,7 +110,7 @@ export default {
     }
 
     function emitDeletePrompt() {
-      emit('delete-field');
+      emit('delete-field-prompt', props.field);
     }
 
     return {

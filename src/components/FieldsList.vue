@@ -4,7 +4,7 @@
       v-for="(field, index) of list"
       :key="index"
       :field="field"
-      @delete-field="passDeletePromptEvent"
+      @delete-field-prompt="passDeletePromptEvent"
     />
   </div>
 </template>
@@ -19,8 +19,8 @@ export default {
     list: Array,
   },
   setup(props, { emit }) {
-    function passDeletePromptEvent() {
-      emit('delete-field');
+    function passDeletePromptEvent(field) {
+      emit('delete-field-prompt', field);
     }
     return {
       passDeletePromptEvent,
