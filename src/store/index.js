@@ -69,7 +69,6 @@ export default createStore({
         oldField.name = name;
         oldField.value = value;
       }
-      console.log(oldField);
       localStorage.setItem('contacts', JSON.stringify(state.contacts));
     },
 

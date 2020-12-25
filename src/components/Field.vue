@@ -6,7 +6,7 @@
         ref="inputName"
         :contenteditable="isEditable"
         :class="{'field__input--editable': isEditable}"
-        @keydown="saveNameEnter"
+        @keydown="editOnEnter"
       >{{name || field.name}}</span>
       <span v-if="!name" class="field__delim">:</span>
       <div
@@ -15,6 +15,7 @@
         ref="inputValue"
         :contenteditable="isEditable"
         :class="{'field__input--editable': isEditable}"
+        @keydown="editOnEnter"
       >{{field.value}}</div>
       <div class="field__buttons">
         <Button
@@ -105,7 +106,7 @@ export default {
       toggleEdit();
     }
 
-    function saveNameEnter(event) {
+    function editOnEnter(event) {
       if (inputName.value.textContent === '') {
         event.preventDefault();
         cancelInput();
@@ -124,7 +125,7 @@ export default {
       inputValue,
       isEditable,
       toggleEdit,
-      saveNameEnter,
+      editOnEnter,
       emitEditField,
       cancelInput,
       emitDeletePrompt,
